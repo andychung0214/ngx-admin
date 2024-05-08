@@ -5,7 +5,7 @@ import { PositionModel } from '../entity/position.model';
   selector: 'ngx-search',
   templateUrl: './search.component.html',
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent{
 
   @Output()
   positionChanged: EventEmitter<PositionModel> = new EventEmitter<PositionModel>();
@@ -15,26 +15,27 @@ export class SearchComponent implements OnInit {
 
   constructor(private ngZone: NgZone) {}
 
-  ngOnInit() {
-    const autocomplete = new google.maps.places.Autocomplete(
-      this.searchElementRef.nativeElement, { types: ['address'] },
-    );
+  // ngOnInit() {
+  //   const autocomplete = new google.maps.places.Autocomplete(
+  //     this.searchElementRef.nativeElement, { types: ['address'] },
+  //   );
 
-    autocomplete.addListener('place_changed', () => {
-      this.ngZone.run(() => {
-        // get the place result
-        const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+  //   autocomplete.addListener('place_changed', () => {
+  //     this.ngZone.run(() => {
+  //       // get the place result
+  //       const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-        // verify result
-        if (place.geometry === undefined || place.geometry === null) {
-          return;
-        }
+  //       // verify result
+  //       if (place.geometry === undefined || place.geometry === null) {
+  //         return;
+  //       }
 
-        this.positionChanged.emit(new PositionModel(
-          place.geometry.location.lat(),
-          place.geometry.location.lng(),
-        ));
-      });
-    });
-  }
+  //       this.positionChanged.emit(new PositionModel(
+  //         place.geometry.location.lat(),
+  //         place.geometry.location.lng(),
+  //       ));
+  //     });
+  //   });
+  // }
+
 }
